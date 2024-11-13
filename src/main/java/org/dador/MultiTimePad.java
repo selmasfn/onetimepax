@@ -1,5 +1,8 @@
 package org.dador;
 
+
+import static org.dador.HexConverters.xorArray;
+
 /**
  *PETIT SEFROUN v1
  */
@@ -47,8 +50,42 @@ public class MultiTimePad {
 
         key = new byte[msg1.length() / 2];
         // TODO: renseigner les valeurs de la clé..
-        key[0] = 0 ;
+        key[0] = (byte)0xce^0x54;;;
         key[1] = 0x50;
+        key[2] = (byte)0xcc;
+        key[3] = (byte)0x9f^0x20;
+        key[4] = (byte)0xdf^0x20;
+        key[5] = (byte)0xdc^0x20;
+        key[6] = (byte)0xe5^0x6b;
+        key[7] = (byte)0xdb^0x20;
+        key[8] = (byte)0xe8^0x65;
+        key[9] = (byte)0x8b^0x20;
+        key[10] = (byte)0xc1^0x74;
+        key[11] = 0x41^0x20;
+        key[12] = (byte)0xc0^0x20;
+        key[13] = (byte)0xbb^0x20;
+        key[14] = (byte)0xbf^0x20;
+        key[15] = 0x71^0x20;
+        key[16] = (byte)0x0d^0x20;
+        key[17] = 0;
+        key[18] = (byte)0x90^0x20;
+        key[19] = (byte)0x88^0x20;
+        key[20] = 0; //15
+        key[21] = (byte)0x28^0x20;
+        key[22] = (byte)0x6d^0x20; //17
+        key[23] = (byte)0x96^0x20;
+        key[24] = (byte)0x38^0x20; //19
+        key[25] = (byte)0x96^0x20;
+        key[26] = (byte)0xf3^0x20; //26
+        key[27] = (byte)0x7c^0x20;
+        key[28] = (byte)0x23^0x20;
+        key[29] = 0;
+        key[30] = (byte)0x11^0x3F;
+
+
+
+
+
 
 
         System.out.println("Key :");
@@ -61,14 +98,17 @@ public class MultiTimePad {
         System.out.print("i: ");
         System.out.println(displayIndex);
         i = 1;
+
         while (i < nbMsg) {
-            // TODO : modifier la ligne suivante
-            tmpByteMsg = HexConverters.toByteArrayFromHex(messages[i]);
+            byte[] resultat = xorArray(byteArrayMsg[0],byteArrayMsg[i]);
+
             System.out.print(i);
             System.out.print(": ");
-            System.out.println( HexConverters.toPrintableHexFromByteArray(tmpByteMsg));
+            System.out.println( HexConverters.toPrintableHexFromByteArray(resultat));
             i++;
+
         }
+
 
         // Affichage des messages décodés
         System.out.println();
@@ -76,11 +116,15 @@ public class MultiTimePad {
         i = 0;
         while (i < nbMsg) {
             // TODO : afficher le message, au lieu des valeur par octet
-            tmpByteMsg = HexConverters.xorArray(key, byteArrayMsg[i]);
+            tmpByteMsg = xorArray(key, byteArrayMsg[i]);
             System.out.print(i);
             System.out.print(": ");
-            System.out.println(HexConverters.toPrintableHexFromByteArray(tmpByteMsg));
+            System.out.println(HexConverters.toPrintableString(tmpByteMsg));
             i++;
         }
+
+
+
+
     }
 }
