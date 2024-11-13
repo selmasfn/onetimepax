@@ -1,7 +1,7 @@
 package org.dador;
 
 /**
- *PETIT SEFROUN
+ *PETIT SEFROUN v1
  */
 public class MultiTimePad {
 
